@@ -1,0 +1,30 @@
+{
+    "name": "Flet Web App",
+    "dockerFile": "Dockerfile",
+    "context": "..",
+    "remoteUser": "fletuser",
+    "workspaceFolder": "/app",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind,consistency=bind",
+    "forwardPorts": [8550],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-ceintl.vscode-language-pack-ja",
+                "ms-python.debugpy",
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-python.black-formatter",
+                "ms-python.flake8",
+                "ms-python.isort",
+                "christian-kohler.path-intellisense",
+                "njpwerner.autodocstring",
+                "esbenp.prettier-vscode",
+                "mosapride.zenkaku",
+                "oderwat.indent-rainbow",
+                "usernamehw.errorlens",
+                "streetsidesoftware.code-spell-checker",
+                "pkief.material-icon-theme"
+            ]
+        }
+    }
+}

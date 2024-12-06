@@ -1,0 +1,32 @@
+# Python 3.12イメージをベースに使用
+FROM python:3.12 AS builder
+
+# 一般ユーザーを作成
+RUN useradd -m fletuser
+
+# デフォルトシェルをbashに設定
+RUN chsh -s /bin/bash fletuser
+
+# 作業ディレクトリを設定
+WORKDIR /app
+
+# requirements.txtをコピー
+COPY requirements.txt ./
+
+# 一般ユーザーに切り替える前にディレクトリ権限を変更
+RUN chown -R fletuser:fletuser /app
+
+# 一般ユーザーに切り替え
+USER fletuser
+
+# 依存パッケージのインストール
+RUN pip install --no-cache-dir --user -r requirements.txt
+
+# ~/.local/binをPATHに追加 (pipで--userオプションを使った場合のインストール先)
+ENV PATH="/home/fletuser/.local/bin:$PATH"
+
+# ポート指定（Fletのデフォルトポート）
+EXPOSE 8550
+
+# アプリケーションを起動
+CMD ["flet", "run", "--web", "main.py", "--port", "8550"]
